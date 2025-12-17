@@ -99,3 +99,5 @@ root@ip-172-31-24-77:/home/ubuntu/linux-backup-project/backup# crontab -l
 */5 * * * * /home/ubuntu/linux-backup-project/scripts/backup.sh >> /home/ubuntu/linux-backup-project/logs/cron.log 2>&1
 root@ip-172-31-24-77:/home/ubuntu/linux-backup-project/backup# ls
 2025-12-17_10-47  2025-12-17_10-56  2025-12-17_10-57  2025-12-17_16-58  2025-12-17_16-59  2025-12-17_17-00  2025-12-17_17-25
+root@ip-172-31-24-77:/home/ubuntu/linux-backup-project/backup# ls
+2025-12-17_10-47  2025-12-17_10-56  2025-12-17_10-57  2025-12-17_16-58  2025-12-17_16-59  2025-12-17_17-00  2025-12-17_17-25  2025-12-17_17-30
