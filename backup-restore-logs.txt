@@ -14,3 +14,95 @@ sent 228 bytes  received 44 bytes  544.00 bytes/sec
 total size is 145  speedup is 0.53
 root@ip-172-31-24-77:/home/ubuntu# ls /var/www/data/
 file1.txt  file2.txt  file3.txt
+root@ip-172-31-24-77:/home/ubuntu# ls /var/www/data/
+file1.txt  file2.txt  file3.txt
+root@ip-172-31-24-77:/home/ubuntu# rm /var/www/data/file2.txt 
+root@ip-172-31-24-77:/home/ubuntu# ls /var/www/data/
+file1.txt  file3.txt
+root@ip-172-31-24-77:/home/ubuntu# ls /home/ubuntu/linux-backup-project/backup
+2025-12-17_10-47  2025-12-17_10-56  2025-12-17_10-57
+root@ip-172-31-24-77:/home/ubuntu# rsync -av /home/ubuntu/linux-backup-project/backup/2025-12-17_10-57/ /var/www/data/
+sending incremental file list
+./
+file2.txt
+
+sent 228 bytes  received 44 bytes  544.00 bytes/sec
+total size is 145  speedup is 0.53
+root@ip-172-31-24-77:/home/ubuntu# ls /var/www/data/
+file1.txt  file2.txt  file3.txt
+root@ip-172-31-24-77:/home/ubuntu/linux-backup-project# tree -L 3
+.
+├── backup
+│   ├── 2025-12-17_10-47
+│   │   ├── file1.txt
+│   │   ├── file2.txt
+│   │   └── file3.txt
+│   ├── 2025-12-17_10-56
+│   │   ├── file1.txt
+│   │   ├── file2.txt
+│   │   └── file3.txt
+│   ├── 2025-12-17_10-57
+│   │   ├── file1.txt
+│   │   ├── file2.txt
+│   │   └── file3.txt
+│   ├── 2025-12-17_16-58
+│   │   ├── file1.txt
+│   │   ├── file2.txt
+│   │   └── file3.txt
+│   └── 2025-12-17_16-59
+│       ├── file1.txt
+│       └── file3.txt
+├── config
+├── logs
+│   └── backup.log
+├── notes
+└── scripts
+    ├── backup.sh
+    ├── monitor.sh
+    └── restore.sh
+
+11 directories, 18 files
+root@ip-172-31-24-77:/home/ubuntu/linux-backup-project# rsync -av /home/ubuntu/linux-backup-project/backup/2025-12-17_10-57/ /var/www/data/
+sending incremental file list
+./
+file2.txt
+
+sent 222 bytes  received 38 bytes  520.00 bytes/sec
+total size is 145  speedup is 0.56
+root@ip-172-31-24-77:/home/ubuntu/linux-backup-project# ./scripts/backup.sh 
+root@ip-172-31-24-77:/home/ubuntu/linux-backup-project# tree -L 3
+.
+├── backup
+│   ├── 2025-12-17_10-47
+│   │   ├── file1.txt
+│   │   ├── file2.txt
+│   │   └── file3.txt
+│   ├── 2025-12-17_10-56
+│   │   ├── file1.txt
+│   │   ├── file2.txt
+│   │   └── file3.txt
+│   ├── 2025-12-17_10-57
+│   │   ├── file1.txt
+│   │   ├── file2.txt
+│   │   └── file3.txt
+│   ├── 2025-12-17_16-58
+│   │   ├── file1.txt
+│   │   ├── file2.txt
+│   │   └── file3.txt
+│   ├── 2025-12-17_16-59
+│   │   ├── file1.txt
+│   │   └── file3.txt
+│   └── 2025-12-17_17-00
+│       ├── file1.txt
+│       ├── file2.txt
+│       └── file3.txt
+├── config
+├── logs
+│   └── backup.log
+├── notes
+└── scripts
+    ├── backup.sh
+    ├── monitor.sh
+    └── restore.sh
+
+12 directories, 21 files
