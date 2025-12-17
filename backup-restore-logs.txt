@@ -1,0 +1,16 @@
+root@ip-172-31-24-77:/home/ubuntu# ls /var/www/data/
+file1.txt  file2.txt  file3.txt
+root@ip-172-31-24-77:/home/ubuntu# rm /var/www/data/file2.txt 
+root@ip-172-31-24-77:/home/ubuntu# ls /var/www/data/
+file1.txt  file3.txt
+root@ip-172-31-24-77:/home/ubuntu# ls /home/ubuntu/linux-backup-project/backup
+2025-12-17_10-47  2025-12-17_10-56  2025-12-17_10-57
+root@ip-172-31-24-77:/home/ubuntu# rsync -av /home/ubuntu/linux-backup-project/backup/2025-12-17_10-57/ /var/www/data/
+sending incremental file list
+./
+file2.txt
+
+sent 228 bytes  received 44 bytes  544.00 bytes/sec
+total size is 145  speedup is 0.53
+root@ip-172-31-24-77:/home/ubuntu# ls /var/www/data/
+file1.txt  file2.txt  file3.txt
