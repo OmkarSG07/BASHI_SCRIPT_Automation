@@ -1,0 +1,101 @@
+root@ip-172-31-24-77:/home/ubuntu/linux-backup-project/scripts# cat backup.sh 
+#!/bin/bash
+
+# ========= CONFIG =========
+SOURCE_DIR="/var/www/data"
+BACKUP_BASE="/home/ubuntu/linux-backup-project/backup"
+LOG_FILE="/home/ubuntu/linux-backup-project/logs/backup.log"
+
+# ========= TIMESTAMP =========
+TIMESTAMP=$(date +"%Y-%m-%d_%H-%M")
+DEST_DIR="$BACKUP_BASE/$TIMESTAMP"
+
+# ========= LOG START =========
+echo "[$(date)] Backup started" >> "$LOG_FILE"
+
+# ========= CREATE BACKUP DIR =========
+mkdir -p "$DEST_DIR"
+
+# ========= RUN BACKUP =========
+rsync -av --delete "$SOURCE_DIR/" "$DEST_DIR/" >> "$LOG_FILE" 2>&1
+STATUS=$?
+
+# ========= CHECK RESULT =========
+if [ $STATUS -eq 0 ]; then
+        echo "[$(date)] Backup SUCCESS" >> "$LOG_FILE"
+else
+        echo "[$(date)] Backup Failed with Status $STATUS " >> "$LOG_FILE"
+fi
+root@ip-172-31-24-77:/home/ubuntu/linux-backup-project/scripts# crontab -e
+no crontab for root - using an empty one
+
+Select an editor.  To change later, run 'select-editor'.
+  1. /bin/nano        <---- easiest
+  2. /usr/bin/vim.basic
+  3. /usr/bin/vim.tiny
+  4. /bin/ed
+
+Choose 1-4 [1]: 1
+crontab: installing new crontab
+root@ip-172-31-24-77:/home/ubuntu/linux-backup-project/scripts# crontab -l
+# Edit this file to introduce tasks to be run by cron.
+# 
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+# 
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').
+# 
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+# 
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+# 
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+# 
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+*/5 * * * * /home/ubuntu/linux-backup-project/scripts/backup.sh
+root@ip-172-31-24-77:/home/ubuntu/linux-backup-project/scripts# cd ../backup/
+root@ip-172-31-24-77:/home/ubuntu/linux-backup-project/backup# ls
+2025-12-17_10-47  2025-12-17_10-56  2025-12-17_10-57  2025-12-17_16-58  2025-12-17_16-59  2025-12-17_17-00
+root@ip-172-31-24-77:/home/ubuntu/linux-backup-project/backup# ls
+2025-12-17_10-47  2025-12-17_10-56  2025-12-17_10-57  2025-12-17_16-58  2025-12-17_16-59  2025-12-17_17-00
+root@ip-172-31-24-77:/home/ubuntu/linux-backup-project/backup# ^C
+root@ip-172-31-24-77:/home/ubuntu/linux-backup-project/backup# ls
+2025-12-17_10-47  2025-12-17_10-56  2025-12-17_10-57  2025-12-17_16-58  2025-12-17_16-59  2025-12-17_17-00  2025-12-17_17-25
+root@ip-172-31-24-77:/home/ubuntu/linux-backup-project/backup# crontab -e
+crontab: installing new crontab
+root@ip-172-31-24-77:/home/ubuntu/linux-backup-project/backup# crontab -l
+# Edit this file to introduce tasks to be run by cron.
+# 
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+# 
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').
+# 
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+# 
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+# 
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+# 
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+*/5 * * * * /home/ubuntu/linux-backup-project/scripts/backup.sh >> /home/ubuntu/linux-backup-project/logs/cron.log 2>&1
+root@ip-172-31-24-77:/home/ubuntu/linux-backup-project/backup# ls
+2025-12-17_10-47  2025-12-17_10-56  2025-12-17_10-57  2025-12-17_16-58  2025-12-17_16-59  2025-12-17_17-00  2025-12-17_17-25
